@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
-#include <cmath>
+#include <algorithm>
+
 using namespace std;
 
 string uint_to_bit(unsigned int n){
@@ -62,21 +63,32 @@ void Task1(int exercise){
         unsigned int array[A];
         for (int i = 0; i < A; i++)
             array[i] = 0;
-        cout << "Amount of numbers:";
+        cout << "Enter amount of numbers:";
         int N, n;
         cin >> N;
         for (int i = 1; i <= N; i++) {
-            cout << "Number " << i << ":";
+            cout << "Enter number " << i << ":";
             cin >> n;
             n -= offsett;
             array[n / 32] = array[n / 32] | (1<<(n % 32));
         }
+        cout << "\nBits inside array:" << endl;
+        for (int i = 0; i < A; i++) {
+            if (array[i] != 0) {
+                string s = uint_to_bit(array[i]);
+                reverse(s.begin(), s.end());
+                cout << s << " - Cell " << i << endl;
+            }
+        }
+        int time = clock();
+        cout << "\nSorted array:" << endl;
         for (int i = 0; i < A; i++){
             for (unsigned int j = 0, mask = 1; j < 32; j++, mask=mask<<1){
                 if ((array[i] & mask) != 0)
                     cout << offsett + i * 32 + j << endl;
             }
         }
+        cout << "Execution time:" << clock() - time << " ms";
     }
 }
 
