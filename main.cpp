@@ -66,9 +66,11 @@ void Task1(int exercise){
         cout << "Enter amount of numbers:";
         int N, n;
         cin >> N;
+        //N = 1000;
         for (int i = 1; i <= N; i++) {
             cout << "Enter number " << i << ":";
             cin >> n;
+            //n = rand() % A + 1000000;
             n -= offsett;
             array[n / 32] = array[n / 32] | (1<<(n % 32));
         }
