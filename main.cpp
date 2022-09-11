@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-
 using namespace std;
 
 string uint_to_bit(unsigned int n){
