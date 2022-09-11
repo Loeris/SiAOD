@@ -1,31 +1,59 @@
 #include <iostream>
+#include <string>
 #include <cmath>
 using namespace std;
 
+string uint_to_bit(unsigned int n){
+    string str = "";
+    for (unsigned int i = 0, mask = 1 << (8 * sizeof(n) - 1); i < 8 * sizeof(n); i++, mask = mask >> 1){
+        if (n & mask)
+            str += "1";
+        else
+            str += "0";
+    }
+    return str;
+}
+
 void Task1(int exercise){
     if (exercise == 1){
-        int n = 0x7FFFFFF;
-        cout << "1) Initial number:" << n << endl;
-        cout << "Modified number(9th, 10th, 11th and 12th bits turned into 1):" << (n | 0x00000F00) << endl;
+        unsigned int n = 0x00000000;
 
-        cout << "2) Initial number:";
-        cin >> n;
-        cout << "Modified number(17th, 15th and 1st bits nullified):" << (n & 0x111E711E) << endl;
+        cout << "1) Task: Turn 9th, 10th, 11th and 12th bits into 1";
+        cout << "\nInitial number:" << n << endl << uint_to_bit(n) << endl;
+        n = n | 0x00000F00;
+        cout << "Modified number:" << n << endl << uint_to_bit(n) << endl;
 
-        cout << "3) Initial number:";
+        cout << "\n2) Task: Turn 17th, 15th and 1st bits into 0";
+        cout << "\nEnter number:";
         cin >> n;
-        cout << "Modified number(multiplied by 1024):" << (n<<10) << endl;
+        cout << "Initial number:" << n << endl << uint_to_bit(n) << endl;
+        n = n & 0x111E711E;
+        cout << "Modified number:" << n << endl << uint_to_bit(n) << endl;
 
-        cout << "4) Initial number:";
+        cout << "\n3) Task: Multiply by 1024";
+        cout << "\nEnter number:";
         cin >> n;
-        cout << "Modified number(divided by 1024):" << (n>>10) << endl;
+        cout << "Initial number:" << n << endl << uint_to_bit(n) << endl;
+        n = n<<10;
+        cout << "Modified number:" << n << endl << uint_to_bit(n) << endl;
 
-        cout << "5) Initial number:";
+        cout << "\n4) Task: Divide by 1024";
+        cout << "\nEnter number:";
         cin >> n;
-        cout << "n-th bit that should be nullified:";
+        cout << "Initial number:" << n << endl << uint_to_bit(n) << endl;
+        n = n>>10;
+        cout << "Modified number:" << n << endl << uint_to_bit(n) << endl;
+
+        cout << "\n5) Task: Turn n-th bit into 0";
+        cout << "\nEnter number:";
+        cin >> n;
+        cout << "Initial number:" << n << endl << uint_to_bit(n) << endl;
+        cout << "Enter n-th bit, that should be nullified:";
         int k;
         cin >> k;
-        cout << "Modified number("<< k << "th bit nullified): " << (n & (~((0x00000001)<<(k-1)))) << endl;
+        cout << "Initial number:" << n << endl << uint_to_bit(n) << endl;
+        n = n & (~((0x00000001)<<(k-1)));
+        cout << "Modified number:" << n << endl << uint_to_bit(n) << endl;
     }
     if (exercise == 2){
         int N0_7 = 312500, N7 = 281250;
@@ -52,17 +80,13 @@ void Task1(int exercise){
     }
 }
 
-void Run(int task, int exercise){
-    if (task == 1)
-        Task1(exercise);
-}
 
 int main() {
-    // cout << "Input task: ";
+    cout << "Input task:";
     int exercise;
-    // cin >> exercise;
+    cin >> exercise;
     int task = 1;
-    exercise = 2;
-    Run(task, exercise);
+    if (task == 1)
+        Task1(exercise);
     return 0;
 }
