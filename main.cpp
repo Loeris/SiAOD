@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <fstream>
 using namespace std;
 
 string uint_to_bit(unsigned int n){
@@ -93,13 +94,56 @@ void Task1(int exercise){
     }
 }
 
+int readTextFile(string nameTf) {
+    ifstream itf(nameTf);
+    if (!itf) return 1;
+    int x;
+    while (!itf.eof()) {
+        itf >> x;
+        cout << x << ' ';
+    }
+    itf.close();
+    return 0;
+}
+
+int createNewTextFile(string nameTf, string nameNewFile) {
+    ifstream itf(nameTf);
+    if (!itf) return 1;
+    ofstream otf(nameNewFile);
+    int x;
+    while (itf >> x) {
+        if (x % 2 == 0) otf << ' ' << x;
+        cout << x << ' ';
+
+    }
+    itf.close();
+    otf.close();
+    return 0;
+}
+
+int addToTextFile(string nameTf, int a, int b) {
+    ofstream otf(nameTf, ios::app);
+    if (!otf) return 1;
+    otf << '\n' << a << ' ' << b;
+    otf.close();
+    return 0;
+}
+
+void Task0() {
+    int kod = readTextFile("A.txt");
+    if (kod == 1) cout << "File not found";
+}
 
 int main() {
-    cout << "Input task:";
+    cout << "Input task part:";
     int exercise;
     cin >> exercise;
     int task = 1;
+    if (task == 0)
+        Task0();
     if (task == 1)
         Task1(exercise);
+    if (task == 2)
+        Task0();
     return 0;
 }
